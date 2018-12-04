@@ -12,12 +12,12 @@ var { name } = user;
 console.log(name);
  */
 
-MongoClient.connect('mongodb://localhost:27017/TodoApp', { useNewUrlParser: true },(err,client)=>{
+MongoClient.connect('mongodb://localhost:27017/TodoMongooseApp', { useNewUrlParser: true },(err,client)=>{
 	if(err){
 		console.log('Unable to connect to MongoDB');
 	}
 	console.log('connected to mongoDb serer');
-	const db = client.db('TodoApp');
+	console.log(db);
 
 //	db.collection('Todos').find({completed: true}).toArray().then((docs) => {
 	
