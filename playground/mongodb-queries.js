@@ -13,7 +13,7 @@ if (!ObjectID.isValid(id)) {
 //it does not error out - just keeps going
 
 //returns an Array - 
-/* 
+ 
 Todo.find({
 	_id: id
 }).then((todos) => {
@@ -28,7 +28,6 @@ Todo.findOne({
 }).then((todo) => {
 	console.log('todos:', todo);
 });
- */
 
 
 //returns object of one
