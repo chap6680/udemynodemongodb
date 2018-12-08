@@ -8,6 +8,10 @@ const {ObjectID} = require('mongodb');
 
 
 var app = express();
+
+//DEPLOY TO HEROKU
+const port = process.env.PORT || 3000;
+
 app.use(bodyParser.json());
 
 app.get('/todos/:id', (req, res) => {
@@ -60,8 +64,10 @@ app.get('/todos', (req, res) => {
 	})
 });
 
-app.listen(3000, () => {
-	console.log('Server started on 3000');
+
+// DEPLOY TO HEROKU - CHANGE 3000 to PORT
+app.listen(PORT, () => {
+	console.log(`Server started on ${PORT}`);
 });
 
 module.exports = { app };
