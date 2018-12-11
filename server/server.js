@@ -1,11 +1,10 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var { ObjectID } = require('mongodb');
 
 var { mongoose } = require('./db/mongoose');
 var { Todo } = require('./models/todo');
 var { User } = require('./models/user');
-const {ObjectID} = require('mongodb');
-
 
 var app = express();
 
@@ -66,8 +65,8 @@ app.get('/todos', (req, res) => {
 
 
 // DEPLOY TO HEROKU - CHANGE 3000 to PORT
-app.listen(PORT, () => {
-	console.log(`Server started on ${PORT}`);
+app.listen(port, () => {
+	console.log(`Server started on ${port}`);
 });
 
 module.exports = { app };
