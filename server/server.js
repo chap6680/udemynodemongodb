@@ -1,3 +1,4 @@
+const lodash = require('lodash'); 
 var express = require('express');
 var bodyParser = require('body-parser');
 var { ObjectID } = require('mongodb');
@@ -63,7 +64,45 @@ app.post('/todos', (req, res) => {
 	});
 });
 
+app.post('/todos', (req, res) => {
+	var todo = new Todo({
+	  text: req.body.text
+	});
+  
+	todo.save().then((doc) => {
+	  res.send(doc);
+	}, (e) => {
+	  res.status(400).send(e);
+	});
+  });
 
+
+app.patch('/todos/:id', (req, res) => {
+	var id = req.params.id;
+	var body = lodash.pick(req.body, ['text', 'completed']);
+
+	//validateid
+	if (!ObjectID.isValid(id)) {
+		console.log('checkvalid');
+		return res.status(404).send();
+	};
+	
+	if (lodash.isBoolean(body.completed) && body.completed) {
+		body.completedAt = new Date().getTime();
+	} else {
+		body.completed = false;
+		body.completedAt = null;
+	};
+
+	Todo.findByIdAndUpdate(id, { $set: body }, { new: true }).then((todo) => {
+		if (!todo) {
+			return res.status(404).send();
+		}
+		res.send({ todo });
+	}).catch((e)=> {
+		res.status(400).send();
+	})
+});
 
 // DEPLOY TO HEROKU - CHANGE 3000 to PORT
 app.listen(port, () => {
